@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using NUnit.Framework;
 
 namespace ServiceStack.Text.Tests
@@ -66,6 +67,11 @@ namespace ServiceStack.Text.Tests
                     stopwatch.Stop();
                     var partialXml = xml.Length > 100 ? xml.Substring(0, 100) + "..." : xml;
                     Console.WriteLine("XML Time: {0} ticks, Len: {1}: {2}", stopwatch.ElapsedTicks, xml.Length, partialXml);
+                }
+
+                using (var stream = new MemoryStream())
+                {
+                    XmlSerializer.SerializeToStream(model, stream);
                 }
             }
 
